@@ -37,13 +37,24 @@ endif()
 # --------------------------------------------------------------------------------------------------------------------------------
 
 # define exported targets for nested project builds to consume
-add_library(Vulkan-Headers INTERFACE)
-target_include_directories(Vulkan-Headers INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/include")
-add_library(Vulkan::Headers ALIAS Vulkan-Headers)
+add_library(Headers INTERFACE)
+target_include_directories(Headers INTERFACE 
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+)
+add_library(Vulkan::Headers ALIAS Headers)
 
 add_library(Vulkan-Registry INTERFACE)
 target_include_directories(Vulkan-Registry INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/registry")
 add_library(Vulkan::Registry ALIAS Vulkan-Registry)
+
+install(TARGETS Headers EXPORT Vulkan-HeadersTargets)
+install(
+    EXPORT Vulkan-HeadersTargets
+    FILE Vulkan-HeadersTargets.cmake
+    NAMESPACE Vulkan::
+    DESTINATION lib/cmake/Vulkan-Headers
+)
 
 install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/vulkan" DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/vk_video" DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
