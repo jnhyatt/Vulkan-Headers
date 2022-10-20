@@ -4316,6 +4316,17 @@ namespace VULKAN_HPP_NAMESPACE
       {
       }
 
+      Buffer( VULKAN_HPP_NAMESPACE::Device                                                    device,
+              VULKAN_HPP_NAMESPACE::VULKAN_HPP_RAII_NAMESPACE::DeviceDispatcher const *       dispatcher,
+              VkBuffer                                                                        buffer,
+              VULKAN_HPP_NAMESPACE::Optional<const VULKAN_HPP_NAMESPACE::AllocationCallbacks> allocator = nullptr )
+        : m_device( device )
+        , m_buffer( buffer )
+        , m_allocator( static_cast<const VULKAN_HPP_NAMESPACE::AllocationCallbacks *>( allocator ) )
+        , m_dispatcher( dispatcher )
+      {
+      }
+
       Buffer( std::nullptr_t ) {}
 
       ~Buffer()
@@ -7587,6 +7598,17 @@ namespace VULKAN_HPP_NAMESPACE
         , m_image( image )
         , m_allocator( static_cast<const VULKAN_HPP_NAMESPACE::AllocationCallbacks *>( allocator ) )
         , m_dispatcher( device.getDispatcher() )
+      {
+      }
+
+      Image( VULKAN_HPP_NAMESPACE::Device                                                    device,
+             VULKAN_HPP_NAMESPACE::VULKAN_HPP_RAII_NAMESPACE::DeviceDispatcher const *       dispatcher,
+             VkImage                                                                         image,
+             VULKAN_HPP_NAMESPACE::Optional<const VULKAN_HPP_NAMESPACE::AllocationCallbacks> allocator = nullptr )
+        : m_device( device )
+        , m_image( image )
+        , m_allocator( static_cast<const VULKAN_HPP_NAMESPACE::AllocationCallbacks *>( allocator ) )
+        , m_dispatcher( dispatcher )
       {
       }
 
